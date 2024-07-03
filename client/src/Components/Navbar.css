@@ -1,0 +1,53 @@
+/* src/Navbar.css */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #282c34; /* Darker background color */
+    padding: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add some shadow for depth */
+  }
+  
+  .navbar-logo a {
+    color: #61dafb; /* Light blue logo color */
+    font-size: 1.5rem;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem; /* Increase gap for better spacing */
+  }
+  
+  .navbar-menu li {
+    display: inline;
+  }
+  
+  .navbar-menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s; /* Smooth transition for color change */
+  }
+  
+  .navbar-menu a:hover {
+    color: #61dafb; /* Change color on hover */
+  }
+  
+  .navbar-login-button {
+    background-color: #61dafb; /* Light blue button color */
+    color: #282c34; /* Dark text color for contrast */
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for background and text color change */
+  }
+  
+  .navbar-login-button:hover {
+    background-color: #21a1f1; /* Slightly darker blue on hover */
+    color: white; /* White text color on hover */
+  }
+  
