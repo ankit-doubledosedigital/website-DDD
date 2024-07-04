@@ -8,6 +8,14 @@ const UserSchema=new mongoose.Schema({
     password:{
         type:String,
         require:true,
+    },
+    email:{
+        type:String,
+        require:true
+    },
+    confirmPassword:{
+        type:String,
+        require:true
     }
 });
 

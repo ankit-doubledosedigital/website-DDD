@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import './style/Register.css';
+import axios from 'axios';
+
 
 const Registration = () => {
-  const [formData, setFormData] = useState({
+  const [registerData, setregisterData] = useState({
     username: '',
     email: '',
     password: '',
@@ -11,42 +13,58 @@ const Registration = () => {
 
   const [errors, setErrors] = useState({});
 
-  const handleChange = (e) => {
+  const handleRegisterChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setregisterData({
+      ...registerData,
       [name]: value
     });
   };
 
   const validate = () => {
     const errors = {};
-    if (!formData.username) errors.username = 'Username is required';
-    if (!formData.email) errors.email = 'Email is required';
-    if (!formData.password) errors.password = 'Password is required';
-    if (formData.password !== formData.confirmPassword) errors.confirmPassword = 'Passwords do not match';
+    if (!registerData.username) errors.username = 'Username is required';
+    if (!registerData.email) errors.email = 'Email is required';
+    if (!registerData.password) errors.password = 'Password is required';
+    if (registerData.password !== registerData.confirmPassword) errors.confirmPassword = 'Passwords do not match';
     return errors;
   };
 
-  const handleSubmit = (e) => {
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
       // Submit form data to the server or handle it as needed
-      console.log('Form data submitted:', formData);
+      console.log('Form data submitted:', registerData);
     }
+    try {
+      const response = await axios.post('http://localhost:8080/register', registerData);
+      console.log(response.data);
+
+    } catch (error) {
+      console.log(error);
+
+    }
+    setregisterData({
+      username: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
+
+    })
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleRegisterSubmit}>
       <div>
+        <h1>Registraion Form</h1>
         <label>Username:</label>
         <input
           type="text"
           name="username"
-          value={formData.username}
-          onChange={handleChange}
+          value={registerData.username}
+          onChange={handleRegisterChange}
         />
         {errors.username && <span>{errors.username}</span>}
       </div>
@@ -55,8 +73,8 @@ const Registration = () => {
         <input
           type="email"
           name="email"
-          value={formData.email}
-          onChange={handleChange}
+          value={registerData.email}
+          onChange={handleRegisterChange}
         />
         {errors.email && <span>{errors.email}</span>}
       </div>
@@ -65,8 +83,8 @@ const Registration = () => {
         <input
           type="password"
           name="password"
-          value={formData.password}
-          onChange={handleChange}
+          value={registerData.password}
+          onChange={handleRegisterChange}
         />
         {errors.password && <span>{errors.password}</span>}
       </div>
@@ -75,12 +93,13 @@ const Registration = () => {
         <input
           type="password"
           name="confirmPassword"
-          value={formData.confirmPassword}
-          onChange={handleChange}
+          value={registerData.confirmPassword}
+          onChange={handleRegisterChange}
         />
         {errors.confirmPassword && <span>{errors.confirmPassword}</span>}
       </div>
       <button type="submit">Register</button>
+     
     </form>
   );
 };

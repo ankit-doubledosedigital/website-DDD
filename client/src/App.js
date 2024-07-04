@@ -19,9 +19,9 @@ const App = () => {
           <Route path='/Image' element={<Image />} />
           <Route path='/About' element={<AboutUsPage />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/Register' element={<Register/>} />
-          <Route path='/Contact' element={<Contact/>} />
-          <Route path='/Privacy' element={<Privacy/>} />
+          <Route path='/Register' element={<Register />} />
+          <Route path='/Contact' element={<Contact />} />
+          <Route path='/Privacy' element={<Privacy />} />
 
         </Routes>
         <Footer />
