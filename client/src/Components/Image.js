@@ -1,6 +1,6 @@
 // src/ImageUpload.js
 import React, { useState } from 'react';
-import './Image.css';
+import './style/Image.css';
 
 const ImageUpload = () => {
   const [image, setImage] = useState(null);

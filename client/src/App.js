@@ -7,6 +7,8 @@ import Image from './Components/Image';
 import AboutUsPage from './Components/Aboutus';
 import Login from './Components/Login';
 import Register from './Components/Register';
+import Contact from './Components/Contact';
+import Privacy from './Components/Privacy';
 
 const App = () => {
   return (
@@ -18,6 +20,8 @@ const App = () => {
           <Route path='/About' element={<AboutUsPage />} />
           <Route path='/login' element={<Login />} />
           <Route path='/Register' element={<Register/>} />
+          <Route path='/Contact' element={<Contact/>} />
+          <Route path='/Privacy' element={<Privacy/>} />
 
         </Routes>
         <Footer />

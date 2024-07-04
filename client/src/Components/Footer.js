@@ -1,7 +1,8 @@
 // src/Footer.js
 import React from 'react';
-import './Footer.css';
+import './style/Footer.css';
 import {Link} from 'react-router-dom';
+
  
 const Footer = () => {
   return (
@@ -9,8 +10,8 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-links">
           <Link to='/About'>About</Link>
-          <Link to='/About'>Contact</Link>
-          <Link to='/About'>Privacy Policy</Link>
+          <Link to='/Contact'>Contact</Link>
+          <Link to='/Privacy'>Privacy Policy</Link>
         </div>
         <p className="footer-text">© 2024 Double Dose Digital. All rights reserved.</p>
       </div>
