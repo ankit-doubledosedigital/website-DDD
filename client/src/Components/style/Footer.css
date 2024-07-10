@@ -1,11 +1,13 @@
 /* src/Footer.css */
 .footer {
+  
     background-color: #282c34; /* Darker background */
     color: #61dafb; /* Light blue text color */
     padding: 1.5rem;
+    /* padding-right: 1.5rem; */
     text-align: center;
-    position: fixed;
-    width: 100%;
+    position:fixed;
+    width: 96.7%;
     bottom: 0;
   }
   

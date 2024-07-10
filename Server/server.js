@@ -26,6 +26,7 @@ app.post('/register',async(req,res)=>{
         res.status(500).json({error:'Registration Failed'})
 
     }
+        //  console.log("🚀 ~ app.post ~ user:", user)
 })
 
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './style/Register.css';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 
 
@@ -36,6 +37,7 @@ const Registration = () => {
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
       // Submit form data to the server or handle it as needed
+      toast.success('Registration Successfull!');
       console.log('Form data submitted:', registerData);
     }
     try {
@@ -44,6 +46,7 @@ const Registration = () => {
 
     } catch (error) {
       console.log(error);
+      toast.success('Registration Failed');
 
     }
     setregisterData({
@@ -56,7 +59,7 @@ const Registration = () => {
   };
 
   return (
-    <form onSubmit={handleRegisterSubmit}>
+    <form onSubmit={handleRegisterSubmit} className='form'>
       <div>
         <h1>Registraion Form</h1>
         <label>Username:</label>

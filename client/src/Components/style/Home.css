@@ -1,0 +1,36 @@
+.App {
+    text-align: center;
+  }
+  
+  .hero-section {
+    padding: 50px 20px;
+    background-color: #61dafb;
+    color: #282c34;
+  }
+  
+  .services-section {
+    padding: 50px 20px;
+  }
+  
+  .service {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+  }
+  
+  .service-icon {
+    font-size: 2rem;
+    margin-right: 20px;
+    color: #282c34;
+  }
+  
+  .service h3 {
+    margin: 0;
+  }
+  
+  .service p {
+    margin: 5px 0;
+  }
+  

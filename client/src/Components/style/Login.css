@@ -38,4 +38,13 @@
     color: red;
     margin-bottom: 10px;
   }
+  .form{
+    margin-top: 3.5rem;
+  }
+
+  .link{
+    margin-left: 1rem;
+    text-decoration: none;
+    font-size: 1.5rem;
+  }
   
