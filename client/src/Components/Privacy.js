@@ -1,10 +1,14 @@
 import React from 'react';
 import './style/Privacy.css';
+import img1 from '../assets/pp.jpg';
 
 const PrivacyPolicy = () => {
   return (
     <div className="privacy-container">
-      <h1>Privacy Policy</h1>
+      <div class="image-container">
+        <img src={img1} alt="Contact Us" />
+        <div class="overlay-text"></div>
+      </div>
       <p>
         Welcome to Double Dose Digital Private Limited. We are committed to protecting your privacy and ensuring that your personal information is handled in a safe and responsible manner.
       </p>

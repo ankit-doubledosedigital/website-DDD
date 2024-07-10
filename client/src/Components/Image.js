@@ -1,6 +1,8 @@
 // src/ImageUpload.js
 import React, { useState } from 'react';
 import './style/Image.css';
+import axios from 'axios';
+
 
 const ImageUpload = () => {
   const [image, setImage] = useState(null);
@@ -19,17 +21,33 @@ const ImageUpload = () => {
     setDescription(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    //   e.preventDefault();
-    //   const response = fetch('http://localhost:3000/api/auth/image'),{
-    //     method: "POST",
-    //     headers:{
-    //       'Content-Type':"application/json",
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    //     }
+    try {
+      const formData = new FormData();
+      formData.append('image', image); // Append the image file to FormData
+      formData.append('description', description); // Append the description
 
-    //   }
-  }
+      // Make a POST request to the backend endpoint for image upload
+      const response = await axios.post('http://localhost:8080/image/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Set content type header for FormData
+        },
+      });
+
+      console.log(response.data); // Log the response from the server
+      // Optionally handle success or show a success message
+    } catch (error) {
+      console.error('Image upload failed:', error);
+      // Handle error state or show an error message
+    }
+
+    // Clear form state after submission
+    setImage(null);
+    setPreview(null);
+    setDescription('');
+  };
 
   return (
     <form onSubmit={handleSubmit}>

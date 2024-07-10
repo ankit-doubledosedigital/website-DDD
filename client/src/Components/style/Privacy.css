@@ -3,7 +3,7 @@
     margin: 0 auto;
     padding: 2rem;
     font-family: Arial, sans-serif;
-    background-color: lightblue;
+    /* background-color: lightblue; */
   }
   
   h1 {
@@ -27,3 +27,25 @@
     list-style-type: disc;
     padding-left: 1.5rem;
   }
+  .image-container {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Adjust the height as needed */
+    overflow: hidden;
+  }
+  
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    /* object-fit: cover; */
+  }
+  
+  /* .overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 24px;
+    text-align: center;
+  } */

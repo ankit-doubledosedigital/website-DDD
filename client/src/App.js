@@ -24,7 +24,7 @@ const App = () => {
           <Route path='/Privacy' element={<Privacy />} />
 
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </BrowserRouter>
   );

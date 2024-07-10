@@ -19,13 +19,9 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
-const imageSchema = new mongoose.Schema({
-    description: { type: String, required: true },
-    imagePath: { type: String, required: true },
-});
 
 
-module.exports = mongoose.model('Image', imageSchema);
+
 const user = mongoose.model('User', UserSchema);
 
 module.exports = user
