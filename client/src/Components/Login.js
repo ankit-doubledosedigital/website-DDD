@@ -35,7 +35,7 @@ const Login = () => {
         navigate('/Navbar'); // Navigate to the desired page on successful login
       } else {
         toast.success(response.data.message);
-
+        navigate('/image'); // Navigate to the /image route
       }
     } catch (error) {
       setMessage('Login failed');
