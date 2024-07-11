@@ -8,7 +8,10 @@ const connectDB = require('./db/dbconnection');
 const User = require('./model/user');
 const ImageUpload = require('./model/image-upload');
 const TextUpload = require('./model/text-upload');
+const VideoUpload=require('./model/Video-upload');
 const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
 const multer = require('multer');
 
 // Middleware
@@ -58,22 +61,21 @@ app.post('/login', async (req, res) => {
 
 
 // Image upload
+// Setup multer for image uploads
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/');
+        cb(null, 'Imageuploads/');
     },
     filename: function (req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname);
     }
 });
 const upload = multer({ storage: storage });
+
 app.post('/image', upload.single('image'), async (req, res) => {
     try {
-        
         const { description } = req.body;
         const imagePath = req.file.path; // multer adds the file info to req.file
-        console.log("🚀 ~ app.post ~ imagePath:", imagePath)
-        // console.log("Image upload");
 
         // Check if the required fields are provided
         if (!description || !imagePath) {
@@ -85,7 +87,6 @@ app.post('/image', upload.single('image'), async (req, res) => {
             image: imagePath,
             descr: description,
         });
-        console.log("🚀 ~ app.post ~ newImage:", newImage)
 
         // Save the image document to the database
         await newImage.save();
@@ -119,6 +120,51 @@ app.post('/text', upload.single('text'), async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Text upload failed' });
+    }
+});
+
+//  Video Upload
+
+// Ensure the directory exists
+const uploadDir = path.join(__dirname, 'video-uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir);
+}
+
+// Setup multer for video uploads
+const store = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, uploadDir);
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname);
+    }
+});
+const videoUpload = multer({ storage: store });
+
+app.post('/video', videoUpload.single('video'), async (req, res) => {
+    try {
+        const { description } = req.body;
+        const videoPath = req.file.path; // multer adds the file info to req.file
+
+        // Check if the required fields are provided
+        if (!description || !videoPath) {
+            return res.status(400).json({ error: 'Description and video are required' });
+        }
+
+        // Create a new video document
+        const newVideo = new VideoUpload({
+            video: videoPath,
+            descr: description,
+        });
+
+        // Save the video document to the database
+        await newVideo.save();
+
+        return res.status(200).json({ message: 'Video upload successful' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Video upload failed' });
     }
 });
 
