@@ -9,7 +9,8 @@ import Login from './Components/Login';
 import Register from './Components/Register';
 import Contact from './Components/Contact';
 import Privacy from './Components/Privacy';
-import Home from './Components/Home'
+import Home from './Components/Home';
+import Text from './Components/Text';
 import { ToastContainer } from 'react-toastify';
 import './Components/style/toastify-custom.css'
 // import 'react-toastify/dist/ReactToastify.css';
@@ -39,6 +40,7 @@ const Main = () => {
         <Route path='/Register' element={<Register />} />
         <Route path='/Contact' element={<Contact />} />
         <Route path='/Privacy' element={<Privacy />} />
+        <Route path='/Text' element={<Text />} />
       </Routes>
       <Footer />
     </div>

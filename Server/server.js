@@ -6,8 +6,9 @@ const port = 8080;
 
 const connectDB = require('./db/dbconnection');
 const User = require('./model/user');
-const cors = require('cors');
 const ImageUpload = require('./model/image-upload');
+const TextUpload = require('./model/text-upload');
+const cors = require('cors');
 const multer = require('multer');
 
 // Middleware
@@ -55,6 +56,7 @@ app.post('/login', async (req, res) => {
     }
 })
 
+
 // Image upload
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -64,9 +66,7 @@ const storage = multer.diskStorage({
         cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname);
     }
 });
-
 const upload = multer({ storage: storage });
-
 app.post('/image', upload.single('image'), async (req, res) => {
     try {
         
@@ -96,6 +96,34 @@ app.post('/image', upload.single('image'), async (req, res) => {
         res.status(500).json({ error: 'Image upload failed' });
     }
 });
+
+//  Text_Upload
+
+app.post('/text', upload.single('text'), async (req, res) => {
+    try {
+        const { text } = req.body;
+
+        // Check if the required fields are provided
+        if (!text) {
+            return res.status(400).json({ error: 'Text required' });
+        }
+
+        // Create a new text document
+        const newText = new TextUpload({
+            text: text,
+
+        });
+        // Save the text document to the database
+        await newText.save();
+        return res.status(200).json({ message: 'Text upload successful' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Text upload failed' });
+    }
+});
+
+        
+
 
 
 
