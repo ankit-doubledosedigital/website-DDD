@@ -9,6 +9,7 @@ const ImageUpload = () => {
   let [description, setDescription] = useState('');
   const [preview, setPreview] = useState(null);
   const [message, setMessage] = useState('');
+  const [reward, setReward] =useState('');
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -34,7 +35,9 @@ const ImageUpload = () => {
 
       if (response.status === 200) {
         setMessage(response.data.message);
+        setReward(reward + 20); // Add 20 points to reward
         toast.success('Image Upload Successfull');
+        
         setImage(null); // Clear the image state
         setDescription(''); // Clear the description state
         setPreview(null);
@@ -70,6 +73,7 @@ const ImageUpload = () => {
         <button type='submit'>Upload</button>
       </form>
       {message && <p id="message">{message}</p>}
+      <p>Reward Points: {reward}</p>
     </div>
   );
 };

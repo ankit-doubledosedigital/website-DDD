@@ -9,6 +9,7 @@ const User = require('./model/user');
 const ImageUpload = require('./model/image-upload');
 const TextUpload = require('./model/text-upload');
 const VideoUpload=require('./model/Video-upload');
+const AudioUpload=require('./model/Audio-upload');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
@@ -60,7 +61,7 @@ app.post('/login', async (req, res) => {
 })
 
 
-// Image upload
+                                                // Image upload
 // Setup multer for image uploads
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -98,7 +99,8 @@ app.post('/image', upload.single('image'), async (req, res) => {
     }
 });
 
-//  Text_Upload
+
+                                                //  Text_Upload
 
 app.post('/text', upload.single('text'), async (req, res) => {
     try {
@@ -123,8 +125,54 @@ app.post('/text', upload.single('text'), async (req, res) => {
     }
 });
 
-//  Video Upload
 
+                                                    //  Audio Upload
+// Ensure the directory exists
+const uploadDi = path.join(__dirname, 'Audio-uploads');
+if (!fs.existsSync(uploadDi)) {
+    fs.mkdirSync(uploadDi);
+}
+
+// Setup multer for video uploads
+const Save = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, uploadDir);
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname);
+    }
+});
+const audioUpload = multer({ storage: Save });
+
+app.post('/audio', audioUpload.single('audio'), async (req, res) => {
+    try {
+        const { description } = req.body;
+        const audioPath = req.file.path; // multer adds the file info to req.file
+
+        // Check if the required fields are provided
+        if (!description || !audioPath) {
+            return res.status(400).json({ error: 'Description and video are required' });
+        }
+
+        // Create a new video document
+        const newAudio = new AudioUpload({
+            audio: audioPath,
+            descr: description,
+        });
+
+        // Save the video document to the database
+        await newAudio.save();
+
+        return res.status(200).json({ message: 'Audio upload successful' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Audio upload failed' });
+    }
+});
+
+
+
+                                                // Video-Upload
 // Ensure the directory exists
 const uploadDir = path.join(__dirname, 'video-uploads');
 if (!fs.existsSync(uploadDir)) {

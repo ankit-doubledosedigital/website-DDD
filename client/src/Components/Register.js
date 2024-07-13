@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './style/Register.css';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 const Registration = () => {
@@ -102,6 +103,9 @@ const Registration = () => {
         {errors.confirmPassword && <span>{errors.confirmPassword}</span>}
       </div>
       <button type="submit">Register</button>
+      <p>
+        Already Registered? <Link className='link' to='/'>Login</Link>
+      </p>
      
     </form>
   );

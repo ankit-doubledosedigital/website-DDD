@@ -12,6 +12,7 @@ import Privacy from './Components/Privacy';
 import Home from './Components/Home';
 import Text from './Components/Text';
 import Video from './Components/Video';
+import Audio from './Components/Audio';
 import { ToastContainer } from 'react-toastify';
 import './Components/style/toastify-custom.css'
 // import 'react-toastify/dist/ReactToastify.css';
@@ -26,7 +27,7 @@ const App = () => {
 
 const Main = () => {
   const location = useLocation();
-  const showNavbar = location.pathname !== '/login' && location.pathname !== '/Register' ;
+  const showNavbar = location.pathname !== '/' && location.pathname !== '/Register' ;
 
   return (
     <div>
@@ -34,15 +35,16 @@ const Main = () => {
       <ToastContainer />
       
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/home' element={<Home />} />
         <Route path='/Image' element={<Image />} />
         <Route path='/About' element={<AboutUsPage />} />
-        <Route path='/login' element={<Login />} />
+        <Route path='/' element={<Login />} />
         <Route path='/Register' element={<Register />} />
         <Route path='/Contact' element={<Contact />} />
         <Route path='/Privacy' element={<Privacy />} />
         <Route path='/Text' element={<Text />} />
         <Route path='/Video' element={<Video />} />
+        <Route path='/Audio' element={<Audio />} />
       </Routes>
       <Footer />
     </div>

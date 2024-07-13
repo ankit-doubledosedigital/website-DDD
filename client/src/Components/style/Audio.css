@@ -1,0 +1,68 @@
+/* styles/Audio.css */
+
+.audio-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    font-family: Arial, sans-serif;
+}
+
+.audio-upload form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+
+.audio-upload h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.audio-upload input[type="file"] {
+    margin-bottom: 20px;
+}
+
+.audio-preview {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.audio-preview audio {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.audio-upload textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.audio-upload button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.audio-upload button:hover {
+    background-color: #0056b3;
+}
+
+#message {
+    margin-top: 20px;
+    color: red;
+}
