@@ -8,8 +8,9 @@ const connectDB = require('./db/dbconnection');
 const User = require('./model/user');
 const ImageUpload = require('./model/image-upload');
 const TextUpload = require('./model/text-upload');
-const VideoUpload=require('./model/Video-upload');
-const AudioUpload=require('./model/Audio-upload');
+const VideoUpload = require('./model/Video-upload');
+const AudioUpload = require('./model/Audio-upload');
+const Account_Info=require('./model/Account_info');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
@@ -61,7 +62,7 @@ app.post('/login', async (req, res) => {
 })
 
 
-                                                // Image upload
+// Image upload
 // Setup multer for image uploads
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -100,7 +101,7 @@ app.post('/image', upload.single('image'), async (req, res) => {
 });
 
 
-                                                //  Text_Upload
+//  Text_Upload
 
 app.post('/text', upload.single('text'), async (req, res) => {
     try {
@@ -126,7 +127,7 @@ app.post('/text', upload.single('text'), async (req, res) => {
 });
 
 
-                                                    //  Audio Upload
+//  Audio Upload
 // Ensure the directory exists
 const uploadDi = path.join(__dirname, 'Audio-uploads');
 if (!fs.existsSync(uploadDi)) {
@@ -172,7 +173,7 @@ app.post('/audio', audioUpload.single('audio'), async (req, res) => {
 
 
 
-                                                // Video-Upload
+// Video-Upload
 // Ensure the directory exists
 const uploadDir = path.join(__dirname, 'video-uploads');
 if (!fs.existsSync(uploadDir)) {
@@ -216,7 +217,19 @@ app.post('/video', videoUpload.single('video'), async (req, res) => {
     }
 });
 
-        
+// Account_Info
+// Endpoint to fetch all users
+app.get('/login', async (req, res) => {
+    try {
+        const users = await Account_Info.find();
+        res.json(users);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error');
+    }
+});
+
+
 
 
 

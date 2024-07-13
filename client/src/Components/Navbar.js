@@ -2,7 +2,7 @@
 import React from 'react';
 import './style/Navbar.css';
 import { Link } from 'react-router-dom';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 // import logo from '../assets/Reward.png';
 
@@ -18,7 +18,12 @@ const Navbar = () => {
         <li><Link to='/Text'>Text</Link></li>
         <li><Link to='/Video'>Video</Link></li>
         <li><Link to='/Audio'>Audio</Link></li>
-        <li><FontAwesomeIcon icon="fa-solid fa-award" style={{color: "#fcfcfc",}} /></li>
+        <li><FontAwesomeIcon icon="fa-solid fa-award" style={{ color: "#fcfcfc", }} /></li>
+        <li>
+          <button>
+            <Link to="/Account_Info">Go to Account Info</Link>
+          </button>
+        </li>
       </ul>
     </nav>
   );
