@@ -9,6 +9,9 @@ import Login from './Components/Login';
 import Register from './Components/Register';
 import Contact from './Components/Contact';
 import Privacy from './Components/Privacy';
+import Video from './Components/Video';
+import Audio from './Components/Audio';
+import Text  from './Components/Text';
 
 const App = () => {
   return (
@@ -22,6 +25,9 @@ const App = () => {
           <Route path='/Register' element={<Register />} />
           <Route path='/Contact' element={<Contact />} />
           <Route path='/Privacy' element={<Privacy />} />
+          <Route path='/Video' element={<Video />} />
+          <Route path='/Audio' element={<Audio />} />
+          <Route path='/Text' element={<Text />} />
 
         </Routes>
         <Footer />  
