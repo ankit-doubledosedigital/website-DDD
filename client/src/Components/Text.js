@@ -2,11 +2,16 @@ import React, { useState } from 'react';
 import './style/Text.css';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import SumbitImage from '../assets/Contact.png'
 // import 'react-toastify/dist/ReactToastify.css';
 
 const Text = () => {
     const [text, setText] = useState('');
     const [message, setMessage] = useState('');
+    const [rewards, setReward] = useState('0');
+    const [submitted,setSubmitted] =useState(false)
+
+
 
     const handleTextChange = (e) => {
         setText(e.target.value);
@@ -21,6 +26,9 @@ const Text = () => {
             if (response.status === 200) {
                 setMessage(response.data.message);
                 toast.success('Text Uploaded Successfully');
+                setReward(rewards + 20); // Add 20 points to reward
+                setSubmitted(true);
+
                 setText('');
             } else {
                 setMessage(`Error: ${response.data.error}`);
@@ -33,7 +41,14 @@ const Text = () => {
 
     return (
         <div className='text-upload'>
-            <form onSubmit={handleTextUpload}>
+            {submitted ? (
+                <div className="thank-you-message">
+                    <img src={SumbitImage} alt="contact" />
+                    <h2>Thank You!</h2>
+                    <p>Your Text has been successfully sent. You've earned {rewards} reward points.</p>
+                    <p>Reward Points: {rewards}</p>
+                </div>
+            ) : (<form onSubmit={handleTextUpload}>
                 <h2>Text Upload</h2>
                 <input
                     type='text'
@@ -41,7 +56,8 @@ const Text = () => {
                     value={text}
                 />
                 <button type='submit'>Upload</button>
-            </form>
+            </form>)}
+
             {message && <p>{message}</p>}
         </div>
     );

@@ -10,8 +10,8 @@ const ImageUpload = require('./model/image-upload');
 const TextUpload = require('./model/text-upload');
 const VideoUpload = require('./model/Video-upload');
 const AudioUpload = require('./model/Audio-upload');
-const Account_Info=require('./model/Account_info');
-const Contact=require('./model/Contact');
+const Account_Info = require('./model/Account_info');
+const Contact = require('./model/Contact');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
@@ -55,7 +55,7 @@ app.post('/login', async (req, res) => {
 
         }
         if (user.password == password) {
-            return res.status(200).json({ message: 'login successfull ',user:user});
+            return res.status(200).json({ message: 'login successfull ', user: user });
         }
     } catch (error) {
         res.status(500).json({ error: 'Login failed' })
@@ -93,6 +93,9 @@ app.post('/image', upload.single('image'), async (req, res) => {
 
         // Save the image document to the database
         await newImage.save();
+        newImage.rewards += 20;
+        console.log("🚀 ~ app.post ~ newImage:", newImage)
+        
 
         return res.status(200).json({ message: 'Image upload successful' });
     } catch (error) {
@@ -100,6 +103,25 @@ app.post('/image', upload.single('image'), async (req, res) => {
         res.status(500).json({ error: 'Image upload failed' });
     }
 });
+// Log in 
+app.post('/login', async (req, res) => {
+    try {
+        console.log("login")
+        const { email, password } = req.body;
+        console.log("🚀 ~ app.post ~ req.body:", req.body)
+        const user = await User.findOne({ email, password });
+        console.log("🚀 ~ app.post ~ user:", user)
+        if (!email) {
+            return res.status(401).json({ error: 'invalid username or Password' })
+
+        }
+        if (user.password == password) {
+            return res.status(200).json({ message: 'login successfull ', user: user });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Login failed' })
+    }
+})
 
 
 //  Text_Upload
@@ -120,6 +142,8 @@ app.post('/text', upload.single('text'), async (req, res) => {
         });
         // Save the text document to the database
         await newText.save();
+        newImage.rewards += 20;
+
         return res.status(200).json({ message: 'Text upload successful' });
     } catch (error) {
         console.error(error);
@@ -128,14 +152,16 @@ app.post('/text', upload.single('text'), async (req, res) => {
 });
 //  Contact 
 
-app.post('/Contact', async(req,res)=>{
-    try{
-        const {name,email,message}=req.body;
-        const contact=new Contact({name,email,message});
+app.post('/Contact', async (req, res) => {
+    try {
+        const { name, email, message } = req.body;
+        const contact = new Contact({ name, email, message });
         await contact.save();
-        res.status(200).json({message:'Contact successfull'})
-    }catch{
-        res.status(400).json({message:'Contact failed'})
+        // Add 20 reward points for the submission
+        contact.rewards += 20;
+        res.status(200).json({ message: 'Contact successfull' })
+    } catch {
+        res.status(400).json({ message: 'Contact failed' })
     }
 
 })

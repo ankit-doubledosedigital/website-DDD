@@ -11,6 +11,7 @@ const ContactUs = () => {
     message: '',
   });
 
+  const [rewards, setRewards] = useState(0);
   const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => {
@@ -27,6 +28,7 @@ const ContactUs = () => {
       const response = await axios.post('http://localhost:8080/Contact', formData);
       console.log(response.data);
       toast.success('Message sent successfully!');
+      setRewards(rewards + 20); // Assuming each submission adds 20 reward points
       setSubmitted(true);
     } catch (error) {
       console.log(error);
@@ -47,12 +49,13 @@ const ContactUs = () => {
           <img src={ContactImage} alt="contact" />
           <h2>Thank You!</h2>
           <p>Your message has been successfully sent. We will get back to you shortly.</p>
+          <p>Reward Points: {rewards}</p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="contact-form">
           <h1>Contact Us</h1>
           <div className="form-group">
-            <label htmlFor="name">Name:</label>
+            <label htmlFor="name">Name:</label> 
             <input
               type="text"
               id="name"

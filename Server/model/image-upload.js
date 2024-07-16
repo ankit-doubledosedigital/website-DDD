@@ -10,6 +10,10 @@ const ImageSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    rewards: {
+        type: Number,
+        default: 0
+      },
 }, {
     timestamps: true
 });
