@@ -162,6 +162,7 @@ app.post('/Contact', async (req, res) => {
         res.status(200).json({ message: 'Contact successfull' })
     } catch {
         res.status(400).json({ message: 'Contact failed' })
+        // hlo
     }
 
 })
