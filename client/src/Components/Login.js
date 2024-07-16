@@ -32,10 +32,12 @@ const Login = () => {
       if (response.data.success) {
         toast.success
         ('Login successful');
-        navigate('/Navbar'); // Navigate to the desired page on successful login
+        navigate('/home'); // Navigate to the desired page on successful login
       } else {
         toast.success(response.data.message);
-        navigate('/image'); // Navigate to the /image route
+        localStorage.setItem('name',response.data.user.username);
+        localStorage.setItem('email',response.data.user.email);
+        navigate('/home'); // Navigate to the /image route
       }
     } catch (error) {
       setMessage('Login failed');

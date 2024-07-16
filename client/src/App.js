@@ -15,7 +15,7 @@ import Video from './Components/Video';
 import Audio from './Components/Audio';
 import { ToastContainer } from 'react-toastify';
 import './Components/style/toastify-custom.css'
-import Account_info from './Components/Account-info'
+import AccountInfo from './Components/Account-info'
 // import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
@@ -46,7 +46,7 @@ const Main = () => {
         <Route path='/Text' element={<Text />} />
         <Route path='/Video' element={<Video />} />
         <Route path='/Audio' element={<Audio />} />
-        <Route path='/Account_info' element={<Account_info />} />
+        <Route path='/AccountInfo' element={<AccountInfo />} />
       </Routes>
       <Footer />
     </div>

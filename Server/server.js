@@ -11,6 +11,7 @@ const TextUpload = require('./model/text-upload');
 const VideoUpload = require('./model/Video-upload');
 const AudioUpload = require('./model/Audio-upload');
 const Account_Info=require('./model/Account_info');
+const Contact=require('./model/Contact');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
@@ -54,7 +55,7 @@ app.post('/login', async (req, res) => {
 
         }
         if (user.password == password) {
-            return res.status(200).json({ message: 'login successfull ' });
+            return res.status(200).json({ message: 'login successfull ',user:user});
         }
     } catch (error) {
         res.status(500).json({ error: 'Login failed' })
@@ -125,7 +126,19 @@ app.post('/text', upload.single('text'), async (req, res) => {
         res.status(500).json({ error: 'Text upload failed' });
     }
 });
+//  Contact 
 
+app.post('/Contact', async(req,res)=>{
+    try{
+        const {name,email,message}=req.body;
+        const contact=new Contact({name,email,message});
+        await contact.save();
+        res.status(200).json({message:'Contact successfull'})
+    }catch{
+        res.status(400).json({message:'Contact failed'})
+    }
+
+})
 
 //  Audio Upload
 // Ensure the directory exists
@@ -170,6 +183,8 @@ app.post('/audio', audioUpload.single('audio'), async (req, res) => {
         res.status(500).json({ error: 'Audio upload failed' });
     }
 });
+
+
 
 
 
@@ -228,6 +243,18 @@ app.get('/login', async (req, res) => {
         res.status(500).send('Server error');
     }
 });
+
+
+//  Reward-point
+// Sample data for reward points
+// const rewardPointsData = {
+//     points: 1500
+// };
+
+// // Endpoint to get reward points
+// app.get('/reward-points', (req, res) => {
+//     res.json(rewardPointsData);
+// });
 
 
 

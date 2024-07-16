@@ -36,6 +36,7 @@ const ImageUpload = () => {
       if (response.status === 200) {
         setMessage(response.data.message);
         setReward(reward + 20); // Add 20 points to reward
+        
         toast.success('Image Upload Successfull');
         
         setImage(null); // Clear the image state

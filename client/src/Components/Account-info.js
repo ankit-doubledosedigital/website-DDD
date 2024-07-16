@@ -1,48 +1,51 @@
-// src/components/Dashboard.js
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import './style/Account-info.css';
+import { Link } from 'react-router-dom';
+import user from '../assets/user.png';
+// import axios from 'axios';
 
-const Dashboard = () => {
-    const [users, setUsers] = useState([]);
+const AccountInfo = () => {
+    const [rewardPoints, setRewardPoints] = useState(0);
+    const name = localStorage.getItem('name');
+    const email = localStorage.getItem('email');
 
+    // localStorage.clear();
+
+    // Assuming you fetch reward points from an API
     useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                const response = await axios.get('http://localhost:8080/login');
-                setUsers(response.data);
-            } catch (error) {
-                console.error('Error fetching users:', error);
-            }
-        };
-
-        fetchUsers();
+        // Replace with actual API call
+        // axios.get('/rewardPoints')
+        //     .then(response => {
+        //         setRewardPoints(response.data.points);
+        //     });
+        setRewardPoints(150); // Placeholder for reward points
     }, []);
 
     return (
-        <div>
+        <div className="dashboard">
             <h2>User Dashboard</h2>
-            <table>
+            <img src={user} alt="user" />
+            <table className="dashboard-table">
                 <thead>
                     <tr>
                         <th>Email</th>
                         <th>Name</th>
-                        <th>Username</th>
                         <th>Reward Points</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {users.map((user) => (
-                        <tr key={user._id}>
-                            <td>{user.email}</td>
-                            <td>{user.name}</td>
-                            <td>{user.username}</td>
-                            <td>{user.rewardPoints}</td>
-                        </tr>
-                    ))}
+                    <tr>
+                        <td>{email}</td>
+                        <td>{name}</td>
+                        <td>{rewardPoints}</td>
+                    </tr>
                 </tbody>
             </table>
+            <button>
+                <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>Logout</Link>
+            </button>
         </div>
     );
 };
 
-export default Dashboard;
+export default AccountInfo;
