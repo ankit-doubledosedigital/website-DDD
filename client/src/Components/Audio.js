@@ -3,12 +3,16 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 // import 'react-toastify/dist/ReactToastify.css';
 import './style/Audio.css'; // Ensure you have a CSS file for styling
+import SumbitImage from '../assets/Contact.png'
 
 const Audio = () => {
     const [audio, setAudio] = useState(null);
     const [description, setDescription] = useState('');
     const [preview, setPreview] = useState(null);
     const [message, setMessage] = useState('');
+    const [rewards, setReward] = useState('0');
+  const [submitted, setSubmitted] = useState(false);
+
 
     const handleAudioChange = (e) => {
         const file = e.target.files[0]; // Corrected to 'files'
@@ -32,6 +36,8 @@ const Audio = () => {
             const response = await axios.post('http://localhost:8080/audio', formData);
             if (response.status === 200) {
                 setMessage(response.data.message);
+                setReward(rewards+20);
+                setSubmitted(true);
                 toast.success('Audio Uploaded Successfully');
                 setAudio(null);
                 setPreview(null);
@@ -49,6 +55,14 @@ const Audio = () => {
 
     return (
         <div className='audio-upload'>
+            {submitted ? (
+        <div className="thank-you-message">
+          <img src={SumbitImage} alt="contact" />
+          <h2>Thank You!</h2>
+          <p>Your Audio has been successfully sent. You've earned {rewards} reward points.</p>
+          <p>Reward Points: {rewards}</p>
+        </div>
+      ) :(
             <form onSubmit={handleAudioUpload}>
                 <h2>Audio Upload</h2>
                 <input
@@ -69,6 +83,7 @@ const Audio = () => {
                 <button type='submit'>Upload</button>
                 {message && <p id="message">{message}</p>}
             </form>
+      )}
         </div>
     );
 };

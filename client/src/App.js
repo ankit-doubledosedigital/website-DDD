@@ -14,8 +14,11 @@ import Text from './Components/Text';
 import Video from './Components/Video';
 import Audio from './Components/Audio';
 import { ToastContainer } from 'react-toastify';
-import './Components/style/toastify-custom.css'
-import AccountInfo from './Components/Account-info'
+import './Components/style/toastify-custom.css';
+import AccountInfo from './Components/Account-info';
+// In your main JS file (e.g., index.js or App.js);
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 // import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {

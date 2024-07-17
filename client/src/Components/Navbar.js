@@ -20,7 +20,7 @@ const Navbar = () => {
         <li><Link to='/Audio'>Audio</Link></li>
         <li><FontAwesomeIcon icon="fa-solid fa-award" style={{ color: "#fcfcfc", }} /></li>
         <li>
-          <button>
+          <button className='account-button'>
             <Link to="/AccountInfo">Go to Account Info</Link>
           </button>
         </li>
