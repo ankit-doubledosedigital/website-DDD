@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import { toast } from 'react-toastify';
-// import axios from 'axios';
+import axios from 'axios';
 // import 'react-toastify/dist/ReactToastify.css';
 // import './style/Audio.css'; 
 
@@ -22,13 +22,35 @@ const Audio = () => {
         setDescription(e.target.value);
     };
 
+    // const handleAudioUpload = async (e) => {
+    //     e.preventDefault();
+    //     const formData = new FormData();
+    //     formData.append('audio', audio);
+    //     formData.append('description', description); // Corrected key
+
+
+    // };
     const handleAudioUpload = async (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('audio', audio);
-        formData.append('description', description); // Corrected key
+        formData.append('description', description);
 
-        
+        try {
+            const response = await axios.post('http://localhost:8080/audio/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            //  setMessage(response.data.message);
+            console.log(response);
+            setAudio(null);
+            setPreview(null);
+            setDescription('');
+        } catch (error) {
+            console.error('Audio upload failed:', error);
+            // setMessage('Audio upload failed');
+        }
     };
 
     return (

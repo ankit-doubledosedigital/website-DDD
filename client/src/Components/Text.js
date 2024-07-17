@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import './style/Text.css';
-// import axios from 'axios';
+import axios from 'axios';
 // import { toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 
@@ -12,10 +12,19 @@ const Text = () => {
         setText(e.target.value);
     };
 
+
     const handleTextUpload = async (e) => {
         e.preventDefault();
-        
+        try {
+            const response = await axios.post('http://localhost:8080/text/upload', { text });
+            console.log(response.data);
+            setText(''); // Clear the input field after successful upload
+        }
+        catch (error) {
+            console.error('There was an error uploading the text!', error);
+        }
     };
+
 
     return (
         <div className='text-upload'>

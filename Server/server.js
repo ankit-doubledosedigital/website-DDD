@@ -1,12 +1,14 @@
 const express = require('express');
 // const User=require('./model/user');
 const multer = require('multer');
+const Text = require('./model/textSchema');
 const app = express();
 const port = 8080;
 
 const connectDB = require('./db/dbconnection');
 const User = require('./model/user');
 const image = require('./model/imageSchema');
+const Audio = require('./model/audioSchema');
 const cors = require('cors');
 // Middleware
 app.use(express.json());
@@ -15,8 +17,9 @@ app.use(express.json());
 app.use(cors())
 
 
-// Multer storage configuration
-const storage = multer.diskStorage({
+
+// Multer storage configuration for image
+const imageStorage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'images'); // Uploads directory where files will be stored
     },
@@ -25,9 +28,22 @@ const storage = multer.diskStorage({
     },
 });
 
+// Multer storage configuration for audio
+
+const audioStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'audio'); // Uploads directory for audio
+    },
+    filename: function (req, file, cb) {
+        cb(null, `${Date.now()}-${file.originalname}`); // Unique filename (timestamp-originalname)
+    },
+});
+
 // Multer upload instance
-const upload = multer({ storage: storage });
-app.post('/image/upload', upload.single('image'), async (req, res) => {
+// const upload = multer({ storage: storage });
+const uploadImage = multer({ storage: imageStorage });
+
+app.post('/image/upload', uploadImage.single('image'), async (req, res) => {
     try {
         const file = req.file;
         if (!file) {
@@ -49,6 +65,47 @@ app.post('/image/upload', upload.single('image'), async (req, res) => {
     } catch (error) {
         console.error('Image upload error:', error);
         res.status(500).json({ error: 'Image upload failed' });
+    }
+});
+
+const uploadAudio = multer({ storage: audioStorage });
+
+app.post('/audio/upload', uploadAudio.single('audio'), async (req, res) => {
+    try {
+        console.log("kin");
+        const file = req.file;
+        if (!file) {
+            return res.status(400).json({ error: 'No file uploaded' });
+        }
+
+        const description = req.body.description;
+
+        const audioPath = req.file.path;
+
+        const newAudio = new Audio({ description, audioPath });
+        await newAudio.save();
+
+        res.status(200).json({ message: 'Audio uploaded successfully' });
+    } catch (error) {
+        console.error('Audio upload error:', error);
+        res.status(500).json({ error: 'Audio upload failed' });
+    }
+});
+
+app.post('/text/upload', async (req, res) => {
+    try {
+        console.log('kk');
+        const { text } = req.body;
+        console.log({ text });
+        if (!text) {
+            return res.status(400).json({ error: 'No text provided' });
+        }
+        const newText = new Text({ content: text });
+        await newText.save();
+        res.status(200).json({ message: 'Text uploaded successfully' });
+    } catch (error) {
+        console.error('Text upload error:', error);
+        res.status(500).json({ error: 'Text upload failed' });
     }
 });
 

@@ -11,7 +11,7 @@ import Contact from './Components/Contact';
 import Privacy from './Components/Privacy';
 import Video from './Components/Video';
 import Audio from './Components/Audio';
-import Text  from './Components/Text';
+import Text from './Components/Text';
 
 const App = () => {
   return (
@@ -30,7 +30,7 @@ const App = () => {
           <Route path='/Text' element={<Text />} />
 
         </Routes>
-        <Footer />  
+        {/* <Footer /> */}
       </div>
     </BrowserRouter>
   );
