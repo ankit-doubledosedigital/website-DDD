@@ -9,6 +9,7 @@ const connectDB = require('./db/dbconnection');
 const User = require('./model/user');
 const image = require('./model/imageSchema');
 const Audio = require('./model/audioSchema');
+const Video = require('./model/videoSchema');
 const cors = require('cors');
 // Middleware
 app.use(express.json());
@@ -39,12 +40,24 @@ const audioStorage = multer.diskStorage({
     },
 });
 
+const videoStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'videos');
+    },
+    filename: function (req, file, cb) {
+        cb(null, `${Date.now()}-${file.originalname}`);
+    },
+});
+
 // Multer upload instance
 // const upload = multer({ storage: storage });
 const uploadImage = multer({ storage: imageStorage });
+const uploadAudio = multer({ storage: audioStorage });
+const uploadVideo = multer({ storage: videoStorage });
 
 app.post('/image/upload', uploadImage.single('image'), async (req, res) => {
     try {
+        console.log("Kit");
         const file = req.file;
         if (!file) {
             return res.status(400).json({ error: 'No file uploaded' });
@@ -68,7 +81,6 @@ app.post('/image/upload', uploadImage.single('image'), async (req, res) => {
     }
 });
 
-const uploadAudio = multer({ storage: audioStorage });
 
 app.post('/audio/upload', uploadAudio.single('audio'), async (req, res) => {
     try {
@@ -91,6 +103,24 @@ app.post('/audio/upload', uploadAudio.single('audio'), async (req, res) => {
         res.status(500).json({ error: 'Audio upload failed' });
     }
 });
+
+app.post('/video/upload', uploadVideo.single('video'), async (req, res) => {
+    try {
+        const file = req.file;
+        if (!file) {
+            return res.status(400).json({ error: 'No file uploaded' });
+        }
+        const description = req.body.description;
+        const videoPath = req.file.path;
+        const newVideo = new Video({ description, videoPath });
+        await newVideo.save();
+        res.status(200).json({ message: 'Video uploaded successfully' });
+    } catch (error) {
+        console.error('Video upload error:', error);
+        res.status(500).json({ error: 'Video upload failed' });
+    }
+});
+
 
 app.post('/text/upload', async (req, res) => {
     try {

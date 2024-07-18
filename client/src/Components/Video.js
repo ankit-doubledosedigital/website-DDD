@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 // import { toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 // import './style/Video.css';
@@ -27,7 +27,22 @@ const VideoUpload = () => {
         const formData = new FormData();
         formData.append('video', video);
         formData.append('description', description);
-        
+
+        try {
+
+            const response = await axios.post('http://localhost:8080/video/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log(response);
+            setVideo(null);
+            setPreview(null);
+            setDescription('');
+        } catch (error) {
+            console.error('Video upload failed:', error);
+            // setMessage('Video upload failed');
+        }
     };
 
     return (
