@@ -31,11 +31,11 @@ const App = () => {
 
 const Main = () => {
   const location = useLocation();
-  const showNavbar = location.pathname !== '/' && location.pathname !== '/Register' ;
+  const hideNavbar = location.pathname !== '/' && location.pathname !== '/Register' ;
 
   return (
     <div>
-      {showNavbar && <Navbar />}
+      {hideNavbar && <Navbar />}
       <ToastContainer />
       
       <Routes>

@@ -1,17 +1,13 @@
 const express = require('express');
-// const User=require('./model/user');
-
 const app = express();
 const port = 8080;
 
 const connectDB = require('./db/dbconnection');
 const User = require('./model/user');
 const ImageUpload = require('./model/image-upload');
-const TextUpload = require('./model/text-upload');
 const VideoUpload = require('./model/Video-upload');
-const AudioUpload = require('./model/Audio-upload');
+// const AudioUpload = require('./model/Audio-upload');
 const Account_Info = require('./model/Account_info');
-const Contact = require('./model/Contact');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
@@ -19,11 +15,13 @@ const multer = require('multer');
 
 // Middleware
 app.use(express.json());
-
-// const upload = multer({ dest: 'uploads/' }); // configure multer to save files to the 'uploads' folder
-
 // Enable Cors 
 app.use(cors())
+
+app.use('/contact', require('./routes/contact'));
+app.use('/text', require('./routes/Text'));
+app.use('/audio', require('./routes/audio'));
+
 
 // Registration
 app.post('/register', async (req, res) => {
@@ -97,7 +95,7 @@ app.post('/image', upload.single('image'), async (req, res) => {
         console.log("🚀 ~ app.post ~ newImage:", newImage)
         
 
-        return res.status(200).json({ message: 'Image upload successful' });
+        return res.status(200).json({ message: 'Image upload successful',newImage:newImage });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Image upload failed' });
@@ -126,93 +124,49 @@ app.post('/login', async (req, res) => {
 })
 
 
-//  Text_Upload
-
-app.post('/text', upload.single('text'), async (req, res) => {
-    try {
-        const { text } = req.body;
-
-        // Check if the required fields are provided
-        if (!text) {
-            return res.status(400).json({ error: 'Text required' });
-        }
-
-        // Create a new text document
-        const newText = new TextUpload({
-            text: text,
-
-        });
-        // Save the text document to the database
-        await newText.save();
-        newImage.rewards += 20;
-
-        return res.status(200).json({ message: 'Text upload successful' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Text upload failed' });
-    }
-});
-//  Contact 
-
-app.post('/Contact', async (req, res) => {
-    try {
-        const { name, email, message } = req.body;
-        const contact = new Contact({ name, email, message });
-        await contact.save();
-        // Add 20 reward points for the submission
-        contact.rewards += 20;
-        res.status(200).json({ message: 'Contact successfull' })
-    } catch {
-        res.status(400).json({ message: 'Contact failed' })
-        // hlo
-        // hlo
-    }
-
-})
-
 //  Audio Upload
 // Ensure the directory exists
-const uploadDi = path.join(__dirname, 'Audio-uploads');
-if (!fs.existsSync(uploadDi)) {
-    fs.mkdirSync(uploadDi);
-}
+// const uploadDi = path.join(__dirname, 'Audio-uploads');
+// if (!fs.existsSync(uploadDi)) {
+//     fs.mkdirSync(uploadDi);
+// }
 
-// Setup multer for video uploads
-const Save = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, uploadDir);
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname);
-    }
-});
-const audioUpload = multer({ storage: Save });
+// // Setup multer for video uploads
+// const Save = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, uploadDir);
+//     },
+//     filename: function (req, file, cb) {
+//         cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname);
+//     }
+// });
+// const audioUpload = multer({ storage: Save });
 
-app.post('/audio', audioUpload.single('audio'), async (req, res) => {
-    try {
-        const { description } = req.body;
-        const audioPath = req.file.path; // multer adds the file info to req.file
+// app.post('/audio', audioUpload.single('audio'), async (req, res) => {
+//     try {
+//         const { description } = req.body;
+//         const audioPath = req.file.path; // multer adds the file info to req.file
 
-        // Check if the required fields are provided
-        if (!description || !audioPath) {
-            return res.status(400).json({ error: 'Description and video are required' });
-        }
+//         // Check if the required fields are provided
+//         if (!description || !audioPath) {
+//             return res.status(400).json({ error: 'Description and video are required' });
+//         }
 
-        // Create a new video document
-        const newAudio = new AudioUpload({
-            audio: audioPath,
-            descr: description,
-        });
+//         // Create a new video document
+//         const newAudio = new AudioUpload({
+//             audio: audioPath,
+//             descr: description,
+//         });
 
-        // Save the video document to the database
-        await newAudio.save();
+//         // Save the video document to the database
+//         await newAudio.save();
 
-        return res.status(200).json({ message: 'Audio upload successful' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Audio upload failed' });
-    }
-});
+//         return res.status(200).json({ message: 'Audio upload successful' });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ error: 'Audio upload failed' });
+//     }
+// });
 
 
 

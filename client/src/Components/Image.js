@@ -41,6 +41,8 @@ const ImageUpload = () => {
         setSubmitted(true);
 
         toast.success('Image Upload Successfull');
+        localStorage.setItem('rewrds', response.data.newImage.rewards);
+        // localStorage.clear();
 
         setImage(null); // Clear the image state
         setDescription(''); // Clear the description state

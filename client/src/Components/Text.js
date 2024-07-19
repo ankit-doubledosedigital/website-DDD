@@ -22,7 +22,8 @@ const Text = () => {
         const formData = new FormData();
         formData.append('text', text);
         try {
-            const response = await axios.post('http://localhost:8080/text', formData);
+            console.log({text})
+            const response = await axios.post('http://localhost:8080/text', {text});
             if (response.status === 200) {
                 setMessage(response.data.message);
                 toast.success('Text Uploaded Successfully');

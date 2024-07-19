@@ -4,12 +4,14 @@ const mongoose = require('mongoose');
 const audioUploadSchema = new mongoose.Schema({
     audio: {
         type: String,
-        required: true,
     },
     descr: {
         type: String,
-        required: true,
-    }
+    },
+    rewards: {
+        type: Number,
+        default: 0
+      },
 }, {
     timestamps: true
 });

@@ -11,7 +11,7 @@ const Audio = () => {
     const [preview, setPreview] = useState(null);
     const [message, setMessage] = useState('');
     const [rewards, setReward] = useState('0');
-  const [submitted, setSubmitted] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
 
 
     const handleAudioChange = (e) => {
@@ -30,13 +30,16 @@ const Audio = () => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('audio', audio);
+        console.log("🚀 ~ handleAudioUpload ~ audio:", audio)
         formData.append('description', description); // Corrected key
+        console.log("🚀 ~ handleAudioUpload ~ description:", description)
 
         try {
-            const response = await axios.post('http://localhost:8080/audio', formData);
+            const response = await axios.post('http://localhost:8080/audio/audios', formData);
             if (response.status === 200) {
                 setMessage(response.data.message);
-                setReward(rewards+20);
+                console.log("🚀 ~ handleAudioUpload ~ response:", response.data)
+                setReward(rewards + 20);
                 setSubmitted(true);
                 toast.success('Audio Uploaded Successfully');
                 setAudio(null);
@@ -52,38 +55,39 @@ const Audio = () => {
             console.error('Error:', error);
         }
     };
+    
 
     return (
         <div className='audio-upload'>
             {submitted ? (
-        <div className="thank-you-message">
-          <img src={SumbitImage} alt="contact" />
-          <h2>Thank You!</h2>
-          <p>Your Audio has been successfully sent. You've earned {rewards} reward points.</p>
-          <p>Reward Points: {rewards}</p>
-        </div>
-      ) :(
-            <form onSubmit={handleAudioUpload}>
-                <h2>Audio Upload</h2>
-                <input
-                    type='file'
-                    accept='audio/*'
-                    onChange={handleAudioChange}
-                />
-                {preview && (
-                    <div className="audio-preview">
-                        <audio src={preview} controls />
-                    </div>
-                )}
-                <textarea
-                    placeholder="Enter audio description"
-                    value={description}
-                    onChange={handleDescriptionChange}
-                />
-                <button type='submit'>Upload</button>
-                {message && <p id="message">{message}</p>}
-            </form>
-      )}
+                <div className="thank-you-message">
+                    <img src={SumbitImage} alt="contact" />
+                    <h2>Thank You!</h2>
+                    <p>Your Audio has been successfully sent. You've earned {rewards} reward points.</p>
+                    <p>Reward Points: {rewards}</p>
+                </div>
+            ) : (
+                <form onSubmit={handleAudioUpload}>
+                    <h2>Audio Upload</h2>
+                    <input
+                        type='file'
+                        accept='audio/*'
+                        onChange={handleAudioChange}
+                    />
+                    {preview && (
+                        <div className="audio-preview">
+                            <audio src={preview} controls />
+                        </div>
+                    )}
+                    <textarea
+                        placeholder="Enter audio description"
+                        value={description}
+                        onChange={handleDescriptionChange}
+                    />
+                    <button type='submit'>Upload</button>
+                    {message && <p id="message">{message}</p>}
+                </form>
+            )}
         </div>
     );
 };
