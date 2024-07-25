@@ -1,6 +1,6 @@
 // src/App.js
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './Components/Navbar';
 import Footer from './Components/Footer';
 import Image from './Components/Image';
@@ -14,26 +14,32 @@ import Audio from './Components/Audio';
 import Text from './Components/Text';
 
 const App = () => {
-  return (
-    <BrowserRouter>
-      <div>
-        <Navbar />
-        <Routes>
-          <Route path='/Image' element={<Image />} />
-          <Route path='/About' element={<AboutUsPage />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/Register' element={<Register />} />
-          <Route path='/Contact' element={<Contact />} />
-          <Route path='/Privacy' element={<Privacy />} />
-          <Route path='/Video' element={<Video />} />
-          <Route path='/Audio' element={<Audio />} />
-          <Route path='/Text' element={<Text />} />
+  const location = useLocation();
+  const hideFooterRoutes = ['/login', '/Register', '/Contact'];
 
-        </Routes>
-        {/* <Footer /> */}
-      </div>
-    </BrowserRouter>
+  return (
+    <div>
+      <Navbar />
+      <Routes>
+        <Route path='/Image' element={<Image />} />
+        <Route path='/About' element={<AboutUsPage />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/Register' element={<Register />} />
+        <Route path='/Contact' element={<Contact />} />
+        <Route path='/Privacy' element={<Privacy />} />
+        <Route path='/Video' element={<Video />} />
+        <Route path='/Audio' element={<Audio />} />
+        <Route path='/Text' element={<Text />} />
+      </Routes>
+      {!hideFooterRoutes.includes(location.pathname) && <Footer />}
+    </div>
   );
 };
 
-export default App;
+const AppWrapper = () => (
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);
+
+export default AppWrapper;

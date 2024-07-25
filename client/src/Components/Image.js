@@ -17,6 +17,8 @@ const ImageUpload = () => {
     }
   };
 
+
+
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
   };

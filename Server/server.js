@@ -10,6 +10,7 @@ const User = require('./model/user');
 const image = require('./model/imageSchema');
 const Audio = require('./model/audioSchema');
 const Video = require('./model/videoSchema');
+const contactMessage = require('./model/contactSchema');
 const cors = require('cors');
 // Middleware
 app.use(express.json());
@@ -84,7 +85,6 @@ app.post('/image/upload', uploadImage.single('image'), async (req, res) => {
 
 app.post('/audio/upload', uploadAudio.single('audio'), async (req, res) => {
     try {
-        console.log("kin");
         const file = req.file;
         if (!file) {
             return res.status(400).json({ error: 'No file uploaded' });
@@ -152,7 +152,7 @@ app.post('/register', async (req, res) => {
         res.status(500).json({ error: 'Registration Failed' })
 
     }
-})
+});
 
 
 // Log in 
@@ -173,13 +173,39 @@ app.post('/login', async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: 'Login failed' })
     }
-})
+});
 
+// Contact Us
+app.post('/contactus', async (req, res) => {
+    try {
+        const { name, email, message } = req.body;
+
+        // Validate input
+        if (!name || !email || !message) {
+            return res.status(400).json({ error: 'All fields are required' });
+        }
+
+        // Create a new contact message instance
+        const newContactMessage = new contactMessage({ name, email, message });
+
+        // Save the contact message to the database
+        await newContactMessage.save();
+
+        // Respond with a success message
+        res.status(200).json({ message: 'Contact message received successfully' });
+    } catch (error) {
+        // Log the error for debugging purposes
+        console.error('Contact us error:', error);
+
+        // Respond with a server error status
+        res.status(500).json({ error: 'Failed to submit contact message' });
+    }
+});
 
 
 connectDB();
 
-
 app.listen(port, () => {
     console.log('server is running port 8080')
 })
+
