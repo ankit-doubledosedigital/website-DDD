@@ -30,9 +30,11 @@ const Login = () => {
     try {
       const response = await axios.post('http://localhost:8080/login', formData);
       if (response.data) {
+        console.log("🚀 ~ handleLoginSubmit ~ response.data:", response.data.user)
         toast.success('Login successful');
         localStorage.setItem('name', response.data.user.username);
         localStorage.setItem('email', response.data.user.email);
+        localStorage.setItem('userId', response.data.user._id);
         navigate('/home'); // Navigate to the desired page on successful login
       } else {
         toast.error(response.data.message);

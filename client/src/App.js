@@ -18,7 +18,6 @@ import './Components/style/toastify-custom.css';
 import AccountInfo from './Components/Account-info';
 // In your main JS file (e.g., index.js or App.js);
 import '@fortawesome/fontawesome-free/css/all.min.css';
-
 // import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
@@ -31,13 +30,12 @@ const App = () => {
 
 const Main = () => {
   const location = useLocation();
-  const hideNavbar = location.pathname !== '/' && location.pathname !== '/Register' ;
+  const hideNavbar = location.pathname !== '/' && location.pathname !== '/register' ;
 
   return (
     <div>
       {hideNavbar && <Navbar />}
       <ToastContainer />
-      
       <Routes>
         <Route path='/home' element={<Home />} />
         <Route path='/Image' element={<Image />} />

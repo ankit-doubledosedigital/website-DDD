@@ -31,6 +31,8 @@ const ImageUpload = () => {
     const formData = new FormData();
     formData.append('image', image);
     formData.append('description', description);
+    formData.append('userId', localStorage.getItem('userId'));
+
 
     try {
       const response = await axios.post('http://localhost:8080/image', formData);

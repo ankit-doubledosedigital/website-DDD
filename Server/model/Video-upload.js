@@ -4,12 +4,16 @@ const mongoose = require('mongoose');
 const VideoUploadSchema = new mongoose.Schema({
     video: {
         type: String,
-        required: true,
+
     },
     descr: {
         type: String,
-        required: true,
-    }
+        
+    },
+    rewards: {
+        type: Number,
+        default: 0
+      }
 }, {
     timestamps: true
 });

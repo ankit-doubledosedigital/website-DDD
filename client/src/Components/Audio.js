@@ -30,15 +30,12 @@ const Audio = () => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('audio', audio);
-        console.log("🚀 ~ handleAudioUpload ~ audio:", audio)
         formData.append('description', description); // Corrected key
-        console.log("🚀 ~ handleAudioUpload ~ description:", description)
 
         try {
             const response = await axios.post('http://localhost:8080/audio/audios', formData);
             if (response.status === 200) {
                 setMessage(response.data.message);
-                console.log("🚀 ~ handleAudioUpload ~ response:", response.data)
                 setReward(rewards + 20);
                 setSubmitted(true);
                 toast.success('Audio Uploaded Successfully');

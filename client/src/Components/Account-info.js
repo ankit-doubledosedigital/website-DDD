@@ -1,15 +1,18 @@
 import './style/Account-info.css';
 import { Link } from 'react-router-dom';
 import user from '../assets/user.png';
-
+// import axios from 'axios';
 
 const AccountInfo = () => {
     const name = localStorage.getItem('name');
     const email = localStorage.getItem('email');
-    const rewards = localStorage.getItem('rewrds');
-
-
-
+   
+    // const response = await axios.get('http://localhost:8080/user/getData', {
+    //     params:{
+    //     userId: localStorage.getItem('userId')
+    //     }
+    // });
+    // console.log("🚀 ~ useEffect ~ response:", response.data)
 
     return (
         <div className="dashboard">
@@ -27,7 +30,7 @@ const AccountInfo = () => {
                     <tr>
                         <td>{email}</td>
                         <td>{name}</td>
-                        <td>{rewards}</td>
+                        <td>55</td>
                     </tr>
                 </tbody>
             </table>

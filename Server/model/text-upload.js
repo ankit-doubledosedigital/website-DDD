@@ -6,10 +6,6 @@ const TextSchema = new mongoose.Schema({
         type: String, // Corrected the type to String
         required: true,
     },
-    rewards: {
-        type: Number,
-        default: 0
-      }
 }, {
     timestamps: true
 });
