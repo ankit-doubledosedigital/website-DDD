@@ -16,10 +16,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    rewardPoints: {
-        type: Number,
-        default: 0,
-    },
+    rewards: {
+      type: Number,
+      default: 0
+    }
 });
 
 const Account_info = mongoose.model('Account_info', userSchema);

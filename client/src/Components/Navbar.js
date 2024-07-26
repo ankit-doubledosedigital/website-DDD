@@ -21,7 +21,7 @@ const Navbar = () => {
         <li><FontAwesomeIcon icon="fa-solid fa-award" style={{ color: "#fcfcfc", }} /></li>
         <li>
           <button className='account-button'>
-            <Link to="/AccountInfo">Go to Account Info</Link>
+            <Link className='account-button' to="/AccountInfo">Go to Account Info</Link>
           </button>
         </li>
       </ul>

@@ -3,12 +3,16 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 import './style/Video.css';
+import SumbitImage from '../assets/Contact.png'
+
 
 const VideoUpload = () => {
     const [video, setVideo] = useState(null);
     const [description, setDescription] = useState('');
     const [preview, setPreview] = useState(null);
     const [message, setMessage] = useState('');
+    const [submitted,setSubmitted]=useState(false);
+    const [rewards,setReward]=useState(0);
 
     const handleVideoChange = (e) => {
         const file = e.target.files[0];
@@ -33,11 +37,14 @@ const VideoUpload = () => {
             const response = await axios.post('http://localhost:8080/video/', formData);
             if (response.status === 200) {
                 setMessage(response.data.message);
+                setReward(rewards+20);
                 console.log("🚀 ~ handleVideoUpload ~ response.data:", response.data)
                 toast.success('Video Uploaded Successfully');
+                
                 setVideo(null);
                 setPreview(null);
                 setDescription('');
+                setReward('')
             } else {
                 setMessage(`Error: ${response.data.error}`);
                 toast.error('failed');
@@ -48,9 +55,29 @@ const VideoUpload = () => {
             console.error('Error:', error);
         }
     };
+    const handleNewUpload = () => {
+        setSubmitted(false);
+        setMessage('');
+        
+        setVideo(null); // Clear the image state
+        setDescription(''); // Clear the description state
+        setPreview(null);
+    
+      };
 
     return (
         <div className='video-upload'>
+             {submitted ? (
+                <div className="thank-you-message">
+                    <img src={SumbitImage} alt="contact" />
+                    <h2>Thank You!</h2>
+                    <p>Your Video has been successfully Upload. You've earned {rewards} reward points.</p>
+                    <p>Reward Points: {rewards}</p>
+                    <button onClick={handleNewUpload}>Upload Another Video</button>
+
+                </div>
+            ) : (
+
             <form onSubmit={handleVideoUpload}>
                 <h2>Video Upload</h2>
                 <input
@@ -69,7 +96,8 @@ const VideoUpload = () => {
                     onChange={handleDescriptionChange}
                 />
                 <button type='submit'>Upload</button>
-            </form>
+            </form> 
+            )}
             {message && <p id="message">{message}</p>}
         </div>
     );

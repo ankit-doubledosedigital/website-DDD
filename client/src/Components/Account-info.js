@@ -1,18 +1,34 @@
 import './style/Account-info.css';
 import { Link } from 'react-router-dom';
 import user from '../assets/user.png';
-// import axios from 'axios';
+import axios from 'axios';
 
 const AccountInfo = () => {
     const name = localStorage.getItem('name');
     const email = localStorage.getItem('email');
-   
-    // const response = await axios.get('http://localhost:8080/user/getData', {
-    //     params:{
-    //     userId: localStorage.getItem('userId')
-    //     }
-    // });
-    // console.log("🚀 ~ useEffect ~ response:", response.data)
+    const userId = localStorage.getItem('userId');
+
+    const clearCacheLogout = () => {
+
+
+        // Clear local storage
+        localStorage.clear();
+
+        // Clear session storage
+        sessionStorage.clear();
+    }
+
+    axios.get('http://localhost:8080/user/getData', {
+        params: { userId }
+    })
+    .then(response => {
+        console.log(response.data); // Handle the response data
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
+
+
 
     return (
         <div className="dashboard">
@@ -30,12 +46,12 @@ const AccountInfo = () => {
                     <tr>
                         <td>{email}</td>
                         <td>{name}</td>
-                        <td>55</td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
             <button>
-                <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>Logout</Link>
+                <Link to="/" onClick={clearCacheLogout} style={{ color: 'inherit', textDecoration: 'none' }}>Logout</Link>
             </button>
         </div>
     );

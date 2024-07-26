@@ -86,3 +86,25 @@ html, body {
     margin-top: 20px;
     color: red;
 }
+
+.thank-you-message {
+    text-align: center;
+    /* margin-top: 5rem; */
+    /* padding-top: 5rem;  */
+  }
+  
+  .thank-you-message img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+  
+  #message {
+    margin-top: 1rem;
+    color: #333;
+  }
+  
+  p#message, p.reward-points {
+    margin-top: 1rem;
+    color: #333;
+  }

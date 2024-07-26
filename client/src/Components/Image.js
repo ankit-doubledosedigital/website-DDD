@@ -49,6 +49,7 @@ const ImageUpload = () => {
         setImage(null); // Clear the image state
         setDescription(''); // Clear the description state
         setPreview(null);
+        
 
       } else {
         setMessage(`Error: ${response.data.error}`);
@@ -58,7 +59,16 @@ const ImageUpload = () => {
       console.error('Error:', error);
     }
   };
+  const handleNewUpload = () => {
+    setSubmitted(false);
+    setMessage('');
 
+    setImage(null); // Clear the image state
+    setDescription(''); // Clear the description state
+    setPreview(null);
+
+  };
+  
   return (
     <div className="image-upload">
       {submitted ? (
@@ -67,6 +77,7 @@ const ImageUpload = () => {
           <h2>Thank You!</h2>
           <p>Your Image has been successfully sent. You've earned {rewards} reward points.</p>
           <p>Reward Points: {rewards}</p>
+          <button onClick={handleNewUpload}>Upload Another Image</button>
         </div>
       ) : (
         <form id='uploadForm' onSubmit={handleImageUpload}>

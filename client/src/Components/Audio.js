@@ -52,6 +52,15 @@ const Audio = () => {
             console.error('Error:', error);
         }
     };
+    const handleNewUpload = () => {
+        setSubmitted(false);
+        setMessage('');
+        
+        setAudio(null); // Clear the image state
+        setDescription(''); // Clear the description state
+        setPreview(null);
+    
+      };
     
 
     return (
@@ -62,6 +71,8 @@ const Audio = () => {
                     <h2>Thank You!</h2>
                     <p>Your Audio has been successfully sent. You've earned {rewards} reward points.</p>
                     <p>Reward Points: {rewards}</p>
+                    <button onClick={handleNewUpload}>Upload Another Audio</button>
+
                 </div>
             ) : (
                 <form onSubmit={handleAudioUpload}>

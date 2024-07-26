@@ -9,7 +9,7 @@ const Text = () => {
     const [text, setText] = useState('');
     const [message, setMessage] = useState('');
     const [rewards, setReward] = useState('0');
-    const [submitted,setSubmitted] =useState(false)
+    const [submitted, setSubmitted] = useState(false)
 
 
 
@@ -22,10 +22,12 @@ const Text = () => {
         const formData = new FormData();
         formData.append('text', text);
         try {
-            console.log({text})
-            const response = await axios.post('http://localhost:8080/text', {text,
-                userId:localStorage.getItem('userId')
+            console.log({ text })
+            const response = await axios.post('http://localhost:8080/text', {
+                text,
+                userId: localStorage.getItem('userId')
             });
+
             if (response.status === 200) {
                 setMessage(response.data.message);
                 toast.success('Text Uploaded Successfully');
@@ -41,6 +43,15 @@ const Text = () => {
             console.error('Error:', error);
         }
     };
+    const handleNewUpload = () => {
+        setSubmitted(false);
+        setMessage('');
+
+        setText(null); // Clear the image state
+       
+        
+
+    };
 
     return (
         <div className='text-upload'>
@@ -50,6 +61,8 @@ const Text = () => {
                     <h2>Thank You!</h2>
                     <p>Your Text has been successfully sent. You've earned {rewards} reward points.</p>
                     <p>Reward Points: {rewards}</p>
+                    <button onClick={handleNewUpload}>Upload Another Text</button>
+
                 </div>
             ) : (<form onSubmit={handleTextUpload}>
                 <h2>Text Upload</h2>

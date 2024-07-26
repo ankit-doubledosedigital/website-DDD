@@ -30,7 +30,7 @@ const App = () => {
 
 const Main = () => {
   const location = useLocation();
-  const hideNavbar = location.pathname !== '/' && location.pathname !== '/register' ;
+  const hideNavbar = location.pathname !== '/' && location.pathname !== '/register'   ;
 
   return (
     <div>
