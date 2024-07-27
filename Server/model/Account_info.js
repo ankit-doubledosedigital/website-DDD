@@ -16,10 +16,6 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    rewards: {
-      type: Number,
-      default: 0
-    }
 });
 
 const Account_info = mongoose.model('Account_info', userSchema);

@@ -8,10 +8,6 @@ const audioUploadSchema = new mongoose.Schema({
     descr: {
         type: String,
     },
-    rewards: {
-        type: Number,
-        default: 0
-      },
 }, {
     timestamps: true
 });

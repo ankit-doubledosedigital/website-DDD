@@ -22,10 +22,6 @@ const ContactSchema = new Schema({
     trim: true,
     maxlength: 1000
   },
-  rewards: {
-    type: Number,
-    default: 0
-  }
 }, {
   timestamps: true // Automatically create createdAt and updatedAt fields
 });

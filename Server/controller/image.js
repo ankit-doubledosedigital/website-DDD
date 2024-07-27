@@ -3,13 +3,13 @@ const imageDao=require('../dao/image');
     module.exports.handleImage=async(req,res)=>{
         try {
             const { description } = req.body;
+            const {userId} = req.body;
             const imagePath = req.file.path;
             if (!description || !imagePath) {
                 return res.status(400).json({ error: 'Description and audio are required' });
             }
     
-            await imageDao.saveImage(description, imagePath);
-            
+            await imageDao.saveImage({description, imagePath,userId});
             
     
             return res.status(200).json({ message: 'image upload successful' });

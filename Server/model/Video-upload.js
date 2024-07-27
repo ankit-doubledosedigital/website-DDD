@@ -10,10 +10,6 @@ const VideoUploadSchema = new mongoose.Schema({
         type: String,
         
     },
-    rewards: {
-        type: Number,
-        default: 0
-      }
 }, {
     timestamps: true
 });

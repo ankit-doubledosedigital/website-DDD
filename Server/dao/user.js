@@ -13,10 +13,13 @@ const validatePassword = async (user, password) => {
     }
     return await bcrypt.compare(password, user.password);
 };
-
+const getUserData = async (userId) => {
+    return await User.findOne({_id:userId});
+};
 module.exports = {
     findUserByEmail,
     validatePassword,
+    getUserData
 };
 
 

@@ -2,7 +2,6 @@ const userDao = require('../dao/user');
 
 module.exports.login = async (email, password) => {
     const user = await userDao.findUserByEmail(email);
-    console.log("🚀 ~ module.exports.login= ~ user:", user)
     if (!user) {
         throw new Error('Invalid username or password');
     }
@@ -16,12 +15,10 @@ module.exports.login = async (email, password) => {
 module.exports.handleUserData = async (req, res) => {
     try {
         const { email, password } = req.body;
-        console.log("🚀 ~ module.exports.handleUserData= ~ req.body:", req.body)
         if (!email || !password) {
             return res.status(400).json({ error: 'Email and password are required' });
         }
-        const user = await module.exports. login(email, password);
-        console.log("🚀 ~ module.exports.handleUserData= ~ user:", user);
+        const user = await module.exports.login(email, password);
         return res.status(200).json({ user: user });
         
     } catch (error) {

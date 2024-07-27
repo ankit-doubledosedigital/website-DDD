@@ -31,14 +31,13 @@ const VideoUpload = () => {
         const formData = new FormData();
         formData.append('video', video);
         formData.append('description', description);
-        console.log("🚀 ~ handleVideoUpload ~ description:", description)
-        console.log("🚀 ~ handleVideoUpload ~ video:", video)
+        formData.append('userId', localStorage.getItem('userId'));
+
         try {
             const response = await axios.post('http://localhost:8080/video/', formData);
             if (response.status === 200) {
                 setMessage(response.data.message);
                 setReward(rewards+20);
-                console.log("🚀 ~ handleVideoUpload ~ response.data:", response.data)
                 toast.success('Video Uploaded Successfully');
                 
                 setVideo(null);

@@ -17,7 +17,7 @@ app.use('/text', require('./routes/Text'));
 app.use('/audio', require('./routes/audio'));
 app.use('/video', require('./routes/video'));
 app.use('/image', require('./routes/image'));
-app.use('/user', require('./routes/user'));
+// app.use('/user', require('./routes/user'));
 app.use('/login', require('./routes/user'));
 app.use('/register', require('./routes/register'));
 

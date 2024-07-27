@@ -31,6 +31,7 @@ const Audio = () => {
         const formData = new FormData();
         formData.append('audio', audio);
         formData.append('description', description); // Corrected key
+        formData.append('userId', localStorage.getItem('userId'));
 
         try {
             const response = await axios.post('http://localhost:8080/audio/audios', formData);

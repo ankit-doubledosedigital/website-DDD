@@ -3,13 +3,13 @@ const audioDao = require('../dao/audio');
 
 module.exports.handleAudio = async (req, res) => {
     try {
-        const { description } = req.body;
+        const { description,userId } = req.body;
         const audioPath = req.file.path;
         if (!description || !audioPath) {
             return res.status(400).json({ error: 'Description and audio are required' });
         }
 
-        await audioDao.saveAudio(description, audioPath);
+        await audioDao.saveAudio({description, audioPath,userId});
         
         
 

@@ -41,9 +41,9 @@ const ImageUpload = () => {
         setMessage(response.data.message);
         setReward(rewards + 20); // Add 20 points to reward
         setSubmitted(true);
-
+        
         toast.success('Image Upload Successfull');
-        localStorage.setItem('rewrds', response.data.newImage.rewards);
+        localStorage.setItem('rewards', response.data.newImage.rewards);
         // localStorage.clear();
 
         setImage(null); // Clear the image state
