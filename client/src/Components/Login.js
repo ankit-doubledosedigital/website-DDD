@@ -6,9 +6,9 @@ import { toast } from 'react-toastify';
 import loginImage from '../assets/login.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faLinkedinIn, faTwitter } from '@fortawesome/free-brands-svg-icons';
-
+import { GoogleLogin } from '@react-oauth/google';
 // Import toastify css file
-// import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +16,15 @@ const Login = () => {
     password: '',
   });
   const navigate = useNavigate();
+
+  const handleSuccess = (response) => {
+    console.log('Login Success:', response);
+  };
+
+  const handleFailure = (response) => {
+    console.log('Login Failed:', response);
+    toast.error('Google login failed');
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,7 +39,6 @@ const Login = () => {
     try {
       const response = await axios.post('http://localhost:8080/login', formData);
       if (response.data) {
-        console.log("🚀 ~ handleLoginSubmit ~ response.data:", response.data.user)
         toast.success('Login successful');
         localStorage.setItem('name', response.data.user.username);
         localStorage.setItem('email', response.data.user.email);
@@ -38,7 +46,6 @@ const Login = () => {
         navigate('/home'); // Navigate to the desired page on successful login
       } else {
         toast.error(response.data.message);
-        console.log('error')
       }
     } catch (error) {
       console.error(error);
@@ -83,6 +90,20 @@ const Login = () => {
           <div className="form-actions">
             <button type="submit" className="login-button">Login</button>
             <Link to="/register" className="signup-button">Sign up</Link>
+            <GoogleLogin
+              onSuccess={handleSuccess}
+              onFailure={handleFailure}
+              useOneTap
+              render={(renderProps) => (
+                <button
+                  className="btn btn-default w-100 mb-2"
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                >
+                  <div className="login-icon me-2"></div>Continue with Google
+                </button>
+              )}
+            />
           </div>
           <div className="social-media">
             <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="social-media-icon">

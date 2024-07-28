@@ -1,5 +1,5 @@
 import './style/Account-info.css';
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import { Link } from 'react-router-dom';
 import user from '../assets/user.png';
 import axios from 'axios';
