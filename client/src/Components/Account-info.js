@@ -18,6 +18,8 @@ const AccountInfo = () => {
         sessionStorage.clear();
     };
 
+    
+
     // useEffect(() => {
         axios.get('http://localhost:8080/login/getData', {
             params: { userId }

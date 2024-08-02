@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './style/Image.css';
 import { toast } from 'react-toastify';
-import SumbitImage from '../assets/Contact.png'
+import SubmitImage from '../assets/Contact.png'; // Fixed typo from "SumbitImage" to "SubmitImage"
 
 const ImageUpload = () => {
-  let [image, setImage] = useState(null);
-  let [description, setDescription] = useState('');
+  const [image, setImage] = useState(null);
+  const [description, setDescription] = useState('');
   const [preview, setPreview] = useState(null);
   const [message, setMessage] = useState('');
-  const [rewards, setReward] = useState('0');
+  const [rewards, setRewards] = useState(localStorage.getItem('rewards') || 0);
   const [submitted, setSubmitted] = useState(false);
 
   const handleImageChange = (e) => {
@@ -33,23 +33,21 @@ const ImageUpload = () => {
     formData.append('description', description);
     formData.append('userId', localStorage.getItem('userId'));
 
-
     try {
       const response = await axios.post('http://localhost:8080/image', formData);
 
       if (response.status === 200) {
         setMessage(response.data.message);
-        setReward(rewards + 20); // Add 20 points to reward
+        const newRewards = parseInt(rewards) + 20; // Add 20 points to reward
+        setRewards(newRewards);
         setSubmitted(true);
         
-        toast.success('Image Upload Successfull');
-        localStorage.setItem('rewards', response.data.newImage.rewards);
-        // localStorage.clear();
+        toast.success('Image Uploaded Successfully');
+        localStorage.setItem('rewards', newRewards);
 
         setImage(null); // Clear the image state
         setDescription(''); // Clear the description state
         setPreview(null);
-        
 
       } else {
         setMessage(`Error: ${response.data.error}`);
@@ -59,28 +57,27 @@ const ImageUpload = () => {
       console.error('Error:', error);
     }
   };
+
   const handleNewUpload = () => {
     setSubmitted(false);
     setMessage('');
-
     setImage(null); // Clear the image state
     setDescription(''); // Clear the description state
     setPreview(null);
-
   };
-  
+
   return (
     <div className="image-upload">
       {submitted ? (
         <div className="thank-you-message">
-          <img src={SumbitImage} alt="contact" />
+          <img src={SubmitImage} alt="contact" />
           <h2>Thank You!</h2>
-          <p>Your Image has been successfully sent. You've earned {rewards} reward points.</p>
+          <p>Your image has been successfully sent. You've earned reward points.</p>
           <p>Reward Points: {rewards}</p>
           <button onClick={handleNewUpload}>Upload Another Image</button>
         </div>
       ) : (
-        <form id='uploadForm' onSubmit={handleImageUpload}>
+        <form id="uploadForm" onSubmit={handleImageUpload}>
           <h2>Upload Image</h2>
           <input type="file" accept="image/*" onChange={handleImageChange} />
           {preview && (
@@ -97,14 +94,11 @@ const ImageUpload = () => {
             {image && <p>File name: {image.name}</p>}
             {description && <p>Description: {description}</p>}
           </div>
-          <button type='submit'>Upload</button>
+          <button type="submit">Upload</button>
         </form>
       )}
       {message && <p id="message">{message}</p>}
-      <p>Reward Points: {rewards}</p>
     </div>
-
-
   );
 };
 

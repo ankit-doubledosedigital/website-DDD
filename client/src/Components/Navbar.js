@@ -4,14 +4,15 @@ import './style/Navbar.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-// import logo from '../assets/Reward.png';
+import logo from '../assets/logo.png';
 
 const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
         {/* <img className='logo' src={logo} alt='logo'/> */}
-        <Link to='/home'>DDD</Link>
+        <Link to='/home'> <img src={logo} alt='logo' className='logo'/> </Link>
+        {/* <Link to='/home'>DDD</Link> */}
       </div>
       <ul className="navbar-menu">
         <li><Link to='/Image'>Image</Link></li>
