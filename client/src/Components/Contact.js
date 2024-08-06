@@ -25,7 +25,7 @@ const ContactUs = () => {
     e.preventDefault();
     // Here you can handle form submission, e.g., send data to the backend
     try {
-      const response = await axios.post('http://localhost:8080/contactus', formData, {
+      const response = await axios.post(process.env.REACT_APP_CONTACT_ROUTE + '/contactus', formData, {
         headers: {
           'Content-Type': 'application/json', // Set content type header for FormData
         },

@@ -32,7 +32,7 @@ const ImageUpload = () => {
       formData.append('description', description); // Append the description
 
       // Make a POST request to the backend endpoint for image upload
-      const response = await axios.post('http://localhost:8080/image/upload', formData, {
+      const response = await axios.post(process.env.REACT_APP_UPLOAD_ROUTE + '/image', formData, {
         headers: {
           'Content-Type': 'multipart/form-data', // Set content type header for FormData
         },

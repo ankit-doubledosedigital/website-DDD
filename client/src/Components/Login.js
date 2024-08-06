@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './style/Login.css'
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -21,17 +21,17 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/login', formData);
+      const response = await axios.post(process.env.REACT_APP_AUTH_ROUTE + '/login', formData);
       console.log(response)
       setMessage(response.data.message);
     } catch (error) {
       setMessage('Login failed');
     }
     setFormData({
-      
+
       email: '',
       password: '',
-      
+
 
     })
   };
@@ -49,7 +49,7 @@ const Login = () => {
       <button type="submit">Login</button>
       {message && <p>{message}</p>}
       <p>
-        Not Registered 
+        Not Registered
         <Link to='/Register'>Register</Link>
       </p>
     </form>

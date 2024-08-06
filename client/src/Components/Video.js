@@ -30,7 +30,7 @@ const VideoUpload = () => {
 
         try {
 
-            const response = await axios.post('http://localhost:8080/video/upload', formData, {
+            const response = await axios.post(process.env.REACT_APP_UPLOAD_ROUTE + 'video', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

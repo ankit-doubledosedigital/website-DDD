@@ -32,6 +32,7 @@ const Registration = () => {
 
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
+    console.log(process.env.REACT_APP_AUTH_ROUTE);
     const validationErrors = validate();
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
@@ -39,7 +40,7 @@ const Registration = () => {
       console.log('Form data submitted:', registerData);
     }
     try {
-      const response = await axios.post('http://localhost:8080/register', registerData);
+      const response = await axios.post(process.env.REACT_APP_AUTH_ROUTE + '/register', registerData);
       console.log(response.data);
 
     } catch (error) {
@@ -58,7 +59,7 @@ const Registration = () => {
   return (
     <form onSubmit={handleRegisterSubmit}>
       <div>
-        <h1>Registraion Form</h1>
+        <h1>Registration Form</h1>
         <label>Username:</label>
         <input
           type="text"
@@ -99,7 +100,7 @@ const Registration = () => {
         {errors.confirmPassword && <span>{errors.confirmPassword}</span>}
       </div>
       <button type="submit">Register</button>
-     
+
     </form>
   );
 };

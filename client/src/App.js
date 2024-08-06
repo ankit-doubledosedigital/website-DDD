@@ -1,6 +1,5 @@
-// src/App.js
 import React from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Navbar from './Components/Navbar';
 import Footer from './Components/Footer';
 import Image from './Components/Image';
@@ -15,23 +14,25 @@ import Text from './Components/Text';
 
 const App = () => {
   const location = useLocation();
-  const hideFooterRoutes = ['/login', '/Register', '/Contact'];
+  const hideNavbarRoutes = ['/login', '/Register'];
 
   return (
     <div>
-      <Navbar />
+      {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
       <Routes>
-        <Route path='/Image' element={<Image />} />
-        <Route path='/About' element={<AboutUsPage />} />
+        <Route path='/' element={<Navigate to='/login' />} />
+        <Route path='/image' element={<Image />} />
+        <Route path='/about' element={<AboutUsPage />} />
         <Route path='/login' element={<Login />} />
         <Route path='/Register' element={<Register />} />
-        <Route path='/Contact' element={<Contact />} />
-        <Route path='/Privacy' element={<Privacy />} />
-        <Route path='/Video' element={<Video />} />
-        <Route path='/Audio' element={<Audio />} />
-        <Route path='/Text' element={<Text />} />
+        <Route path='/contact' element={<Contact />} />
+        <Route path='/privacy' element={<Privacy />} />
+        <Route path='/video' element={<Video />} />
+        <Route path='/audio' element={<Audio />} />
+        <Route path='/text' element={<Text />} />
+        {/* This line allows direct navigation to the Chatbot component */}
       </Routes>
-      {!hideFooterRoutes.includes(location.pathname) && <Footer />}
+      <Footer />
     </div>
   );
 };

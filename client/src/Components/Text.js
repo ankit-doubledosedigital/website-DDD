@@ -16,7 +16,7 @@ const Text = () => {
     const handleTextUpload = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/text/upload', { text });
+            const response = await axios.post(process.env.REACT_APP_UPLOAD_ROUTE + '/text', { text });
             console.log(response.data);
             setText(''); // Clear the input field after successful upload
         }
